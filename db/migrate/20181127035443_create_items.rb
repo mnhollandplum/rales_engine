@@ -5,6 +5,8 @@ class CreateItems < ActiveRecord::Migration[5.1]
       t.text :description
       t.integer :unit_price
 
+      t.references :merchant, foreign_key: true
+
       t.timestamps
     end
   end

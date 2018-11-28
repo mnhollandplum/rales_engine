@@ -31,6 +31,8 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'shoulda-matchers'
   gem 'simplecov'
+  gem 'fast_jsonapi'
+  gem 'faker'
 end
 
 group :development do

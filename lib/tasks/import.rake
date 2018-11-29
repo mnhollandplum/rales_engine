@@ -11,6 +11,7 @@ namespace :import do
         created_at: row[:created_at],
         updated_at: row[:updated_at]
       )
+      puts "importing customer data"
     end
 
     CSV.foreach('db/data/invoice_items.csv', headers: true, header_converters: :symbol) do |row|
@@ -23,6 +24,7 @@ namespace :import do
         created_at: row[:created_at],
         updated_at: row[:updated_at]
       )
+      puts "importing invoice_item data"
     end
 
     CSV.foreach('db/data/invoices.csv', headers: true, header_converters: :symbol) do |row|
@@ -34,6 +36,7 @@ namespace :import do
         created_at: row[:created_at],
         updated_at: row[:updated_at]
       )
+      puts "importing invoice data"
     end
 
     CSV.foreach('db/data/items.csv', headers: true, header_converters: :symbol) do |row|
@@ -54,6 +57,7 @@ namespace :import do
         created_at: row[:created_at],
         updated_at: row[:updated_at]
       )
+      puts "importing merchant data"
     end
 
     CSV.foreach('db/data/transactions.csv', headers: true, header_converters: :symbol) do |row|
@@ -65,6 +69,7 @@ namespace :import do
         created_at: row[:created_at],
         updated_at: row[:updated_at]
       )
+      puts "importing transaction data"
     end
   end
 end

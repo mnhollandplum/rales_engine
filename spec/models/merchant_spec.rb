@@ -28,8 +28,8 @@ describe Merchant, type: :model do
 
   describe "class methods" do
     it '.most_revenue' do
-      expect(Merchant.most_revenue.first).to eq(@merchant_2)
-      expect(Merchant.most_revenue.first.revenue).to equal(0)
+      expect(Merchant.most_revenue.first).to eq(@merchant_1)
+      expect(Merchant.most_revenue.first.revenue).to equal(6)
     end
   end
 end

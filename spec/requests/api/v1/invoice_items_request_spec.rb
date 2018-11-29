@@ -14,7 +14,7 @@ describe "InvoiceItems API" do
 
     invoice_items = JSON.parse(response.body)
 
-    expect(invoice_items.count).to eq(3)
+    expect(invoice_items["data"].count).to eq(3)
   end
     it "can get one Invoice Item by it's id" do
       merchant = create(:merchant)
@@ -30,7 +30,7 @@ describe "InvoiceItems API" do
       invoice_item = JSON.parse(response.body)
 
       expect(response).to be_successful
-      expect(invoice_item["id"]).to eq(id)
+      expect(invoice_item["data"]["id"]).to eq(id.to_s)
     end
 
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Invoices Invoice Items API' do
-  it "returns all invoice items for an Invoice " do
+describe 'Invoices Items API' do
+  it "returns all Items for an Invoice " do
     merchant_1 = create(:merchant)
 
     customer_1 = create(:customer)
@@ -17,14 +17,13 @@ describe 'Invoices Invoice Items API' do
     invoice_item_3 = create(:invoice_item, invoice_id: invoice_2.id, item_id: item_2.id)
 
 
-    get "/api/v1/invoices/#{invoice_1.id}/invoice_items"
+    get "/api/v1/invoices/#{invoice_1.id}/items"
 
-    invoice_items = JSON.parse(response.body)
+    items = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(invoice_items["data"].count).to eq(2)
-    expect(invoice_items["data"].first["id"]).to eq(invoice_item_1.id.to_s)
-    expect(invoice_items["data"].last["id"]).to eq(invoice_item_2.id.to_s)
-    expect(invoice_items["data"]).not_to include(invoice_item_3.id.to_s)
+    expect(items["data"].count).to eq(2)
+    expect(items["data"].first["id"]).to eq(item_1.id.to_s)
+    expect(items["data"].last["id"]).to eq(item_2.id.to_s)
   end
 end

@@ -1,3 +1,4 @@
+require 'csv'
 namespace :import do
   desc  "Import data from CSV files"
 
@@ -11,21 +12,18 @@ namespace :import do
         created_at: row[:created_at],
         updated_at: row[:updated_at]
       )
-      puts "importing customer data"
     end
+    puts "imported customer data"
 
-    CSV.foreach('db/data/invoice_items.csv', headers: true, header_converters: :symbol) do |row|
-      InvoiceItem.create(
+    CSV.foreach('db/data/merchants.csv', headers: true, header_converters: :symbol) do |row|
+      Merchant.create(
         id: row[:id],
-        quantity: row[:quantity],
-        unit_price: row[:unit_price],
-        item_id: row[:item_id],
-        invoice_id: row[:invoice_id],
+        name: row[:name],
         created_at: row[:created_at],
         updated_at: row[:updated_at]
       )
-      puts "importing invoice_item data"
     end
+    puts "imported merchant data"
 
     CSV.foreach('db/data/invoices.csv', headers: true, header_converters: :symbol) do |row|
       Invoice.create(
@@ -36,8 +34,8 @@ namespace :import do
         created_at: row[:created_at],
         updated_at: row[:updated_at]
       )
-      puts "importing invoice data"
     end
+    puts "imported invoice data"
 
     CSV.foreach('db/data/items.csv', headers: true, header_converters: :symbol) do |row|
       Item.create(
@@ -49,18 +47,10 @@ namespace :import do
         updated_at: row[:updated_at]
       )
     end
+    puts "imported item data"
 
-    CSV.foreach('db/data/merchants.csv', headers: true, header_converters: :symbol) do |row|
-      Merchant.create(
-        id: row[:id],
-        name: row[:name],
-        created_at: row[:created_at],
-        updated_at: row[:updated_at]
-      )
-      puts "importing merchant data"
-    end
-
-    CSV.foreach('db/data/transactions.csv', headers: true, header_converters: :symbol) do |row|
+    CSV.foreach('db/data/transactions.csv', headers: true,
+      header_converters: :symbol) do |row|
       Transaction.create(
         id: row[:id],
         credit_card_number: row[:credit_card_number],
@@ -69,7 +59,21 @@ namespace :import do
         created_at: row[:created_at],
         updated_at: row[:updated_at]
       )
-      puts "importing transaction data"
+
     end
+    puts "imported transaction data"
+
+    CSV.foreach('db/data/invoice_items.csv', headers: true, header_converters: :symbol) do |row|
+      InvoiceItem.create(
+        id: row[:id],
+        quantity: row[:quantity],
+        unit_price: row[:unit_price],
+        item_id: row[:item_id],
+        invoice_id: row[:invoice_id],
+        created_at: row[:created_at],
+        updated_at: row[:updated_at]
+      )
+    end
+    puts "imported invoice_item data"
   end
 end

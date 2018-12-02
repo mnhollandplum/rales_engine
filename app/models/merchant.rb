@@ -8,11 +8,11 @@ class Merchant < ApplicationRecord
   has_many :transactions, through: :invoices
 
   def self.most_revenue(limit = 5)
-    select("merchants.*, SUM(invoice_items.unit_price * invoice_items.quantity) AS revenue")
-   .joins(invoices: [:invoice_items, :transactions])
-   .where(transactions: {result: "success"})
-   .group(:id)
-   .order("revenue DESC")
-   .limit(limit)
+    select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) AS revenue')
+    .joins(:invoices, invoices: [:invoice_items, :transactions])
+    .where(transactions: {result: "success"})
+    .group(:id)
+    .order('revenue DESC')
+    .limit(limit)
   end
 end

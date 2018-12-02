@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      namespace :merchants do
+        get '/most_revenue', to: 'most_revenue#index'
+      end
       resources :customers, only: [:index, :show] do
         get '/invoices', to: 'customers/invoices#index'
         get '/transactions', to: 'customers/transactions#index'
@@ -28,9 +31,6 @@ Rails.application.routes.draw do
          get '/items', to: 'merchants/items#index'
          get '/invoices', to: 'merchants/invoices#index'
       end
-       namespace :merchants do
-         get '/most_revenue', to: 'most_revenue#index'
-       end
     end
   end
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Invoice Customer API' do
-  it "returns all Items for an Invoice " do
+  it "returns the Customer for an Invoice " do
     merchant_1 = create(:merchant)
 
     customer_1 = create(:customer)

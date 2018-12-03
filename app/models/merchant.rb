@@ -25,5 +25,10 @@ class Merchant < ApplicationRecord
       .limit(quantity).to_a
   end
 
-
+  def self.revenue_by_date(date)
+    select('sum(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
+      .joins(:invoices, invoices: [:invoice_items, :transactions])
+      .where(transactions: {result: "success"})
+      .where(invoices: {created_at: DateTime.parse(date).beginning_of_day..DateTime.parse(date).end_of_day})[0]
+  end
 end

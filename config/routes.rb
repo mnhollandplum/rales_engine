@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :merchants do
         get '/most_revenue', to: 'most_revenue#index'
+        get '/most_items', to: 'most_items#index'
       end
       resources :customers, only: [:index, :show] do
         get '/invoices', to: 'customers/invoices#index'

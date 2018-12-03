@@ -50,5 +50,10 @@ describe Merchant, type: :model do
       expect(top_merchants_items.last.id).to eq(@merchant_2.id)
       expect(top_merchants_items).to_not include(@merchant_3.id)
     end
+
+    it 'returns the total revenue for date x across all merchants' do
+      total_revenue = Merchant.revenue_by_date(@invoice_1.created_at.to_s).total_revenue
+      expect(total_revenue).to eq(6)
+    end
   end
 end

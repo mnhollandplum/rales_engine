@@ -6,8 +6,8 @@ describe "Transactions API" do
     @customer = create(:customer)
     @invoice = create(:invoice, merchant_id: @merchant.id, customer_id: @customer.id)
 
-    @transaction_1 = create(:transaction, invoice_id: @invoice.id)
-    @transaction_2 = create(:transaction, invoice_id: @invoice.id)
+    @transaction_1 = create(:transaction, invoice_id: @invoice.id, created_at: "1990-04-13 04:30:00 UTC")
+    @transaction_2 = create(:transaction, invoice_id: @invoice.id, created_at: "1990-04-13 04:30:00 UTC")
     @transaction_3 = create(:transaction, invoice_id: @invoice.id)
   end
   it "sends a list of transactions" do
@@ -39,6 +39,19 @@ describe "Transactions API" do
 
       expect(response).to be_successful
       expect(transaction["data"]["attributes"]["id"]).to eq(id)
+    end
+
+    it "can find all transactions with the same attribute" do
+
+      get "/api/v1/transactions/find_all?created_at=1990-04-13T04:30:00.000Z"
+
+      transactions = JSON.parse(response.body)
+
+      expect(response).to be_successful
+
+      expect(transactions["data"].count).to eq(2)
+      expect(transactions["data"].first["id"]).to eq(@transaction_1.id.to_s)
+      expect(transactions["data"].last["id"]).to eq(@transaction_2.id.to_s)
     end
 
 end

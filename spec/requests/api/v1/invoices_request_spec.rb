@@ -7,7 +7,7 @@ describe "Invoices API" do
 
     @invoice_1 = create(:invoice, customer_id: @customer.id, merchant_id: @merchant.id)
     @invoice_2 = create(:invoice, customer_id: @customer.id, merchant_id: @merchant.id)
-    @invoice_3 = create(:invoice, customer_id: @customer.id, merchant_id: @merchant.id)
+    @invoice_3 = create(:invoice, customer_id: @customer.id, merchant_id: @merchant.id, created_at: Time.now + 100)
 
   it "sends a list of invoices" do
 
@@ -40,6 +40,19 @@ describe "Invoices API" do
 
       expect(response).to be_successful
       expect(invoice["data"]["attributes"]["id"]).to eq(id)
+    end
+
+    it "can find all invoices with the same attribute" do
+
+      get "/api/v1/invoices/find_all?id=#{@invoice_1.created_at}"
+
+      invoices = JSON.parse(response.body)
+
+      expect(response).to be_successful
+      expect(invoices["data"].count).to eq(3)
+      expect(invoices["data"].first["attributes"]["id"]).to eq(@invoice_1.id)
+      expect(invoices["data"].first["attributes"]["id"]).to eq(@invoice_2.id)
+      expect(invoices["data"].first["attributes"]["id"]).to eq(@invoice_3.id)
     end
   end
 

@@ -10,8 +10,8 @@ describe "InvoiceItems API" do
 
     @invoice = create(:invoice, customer_id: @customer.id, merchant_id: @merchant.id)
 
-    @invoice_item_1 = create(:invoice_item, item_id: @item.id, invoice_id: @invoice.id)
-    @invoice_item_2 = create(:invoice_item, item_id: @item.id, invoice_id: @invoice.id)
+    @invoice_item_1 = create(:invoice_item, item_id: @item.id, invoice_id: @invoice.id, created_at: "1990-04-13 04:30:00 UTC")
+    @invoice_item_2 = create(:invoice_item, item_id: @item.id, invoice_id: @invoice.id, created_at: "1990-04-13 04:30:00 UTC")
     @invoice_item_3 = create(:invoice_item, item_id: @item.id, invoice_id: @invoice.id)
   end
 
@@ -46,6 +46,17 @@ describe "InvoiceItems API" do
 
       expect(response).to be_successful
       expect(invoice_item["data"]["attributes"]["id"]).to eq(id)
+    end
+
+    it "can find all invoice items with the same attribute" do
+
+      get "/api/v1/invoice_items/find_all?created_at=1990-04-13T04:30:00.000Z"
+
+      invoice_items = JSON.parse(response.body)
+
+      expect(response).to be_successful
+      expect(invoice_items["data"].count).to eq(2)
+      expect(invoice_items["data"].first["attributes"]["id"]).to eq(@invoice_item_1.id)
     end
 
 end

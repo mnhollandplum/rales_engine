@@ -33,12 +33,22 @@ describe Merchant, type: :model do
   end
 
   describe "class methods" do
-    it 'returns top x merchants ranked by total revenue' do
+    it 'returns the top x merchants ranked by total revenue' do
       top_merchants_revenue = Merchant.most_revenue(2).to_a
 
       expect(top_merchants_revenue.size).to eq(2)
       expect(top_merchants_revenue.first).to eq(@merchant_1)
       expect(top_merchants_revenue.last).to eq(@merchant_2)
+    end
+
+    it 'returns the top x merchants ranked by total number of items sold' do
+      top_merchants_items = Merchant.most_items(2).to_a
+
+      expect(top_merchants_items.size).to eq(2)
+
+      expect(top_merchants_items.first.id).to eq(@merchant_1.id)
+      expect(top_merchants_items.last.id).to eq(@merchant_2.id)
+      expect(top_merchants_items).to_not include(@merchant_3.id)
     end
   end
 end

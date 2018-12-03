@@ -1,24 +1,13 @@
-# README
+This is an API to access data from the SalesEngine using JSON and FastJSON API by Amazon.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To collaborate on this project:
 
-Things you may want to cover:
+git clone git@github.com:mnhollandplum/rales_engine.git
 
-* Ruby version
+run:
+* bundle
+* bundle update
+* bundle exec rake db:{create,migrate}
+* bundle exec rake import:data (this may take a few minutes)
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+from the command line

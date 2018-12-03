@@ -54,4 +54,13 @@ describe "Transactions API" do
       expect(transactions["data"].last["id"]).to eq(@transaction_2.id.to_s)
     end
 
+    it 'can find a random transaction' do
+
+      get "/api/v1/transactions/random"
+
+      transaction = JSON.parse(response.body)
+      expect(response).to be_successful
+      expect(transaction.count).to eq(1)
+    end
+
 end

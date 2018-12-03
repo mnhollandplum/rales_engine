@@ -59,4 +59,16 @@ describe "InvoiceItems API" do
       expect(invoice_items["data"].first["attributes"]["id"]).to eq(@invoice_item_1.id)
     end
 
+    it 'can find a random invoice_item' do
+      customer_1 = create(:customer, first_name: "Buffy")
+      customer_2 = create(:customer, first_name: "Buffy")
+      customer_3 = create(:customer, first_name: "Willow")
+
+      get "/api/v1/invoice_items/random"
+
+      invoice_item = JSON.parse(response.body)
+      expect(response).to be_successful
+      expect(invoice_item.count).to eq(1)
+    end
+
 end

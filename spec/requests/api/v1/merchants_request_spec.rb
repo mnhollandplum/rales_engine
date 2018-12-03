@@ -60,4 +60,14 @@ describe "Merchants API" do
       expect(merchants["data"].last["id"]).to eq(merchant_2.id.to_s)
     end
 
+    it 'can find a random invoice' do
+      create_list(:merchant, 3)
+
+      get "/api/v1/merchants/random"
+
+      merchant = JSON.parse(response.body)
+      expect(response).to be_successful
+      expect(merchant.count).to eq(1)
+    end
+
 end

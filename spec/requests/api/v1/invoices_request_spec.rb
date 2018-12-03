@@ -54,6 +54,16 @@ describe "Invoices API" do
       expect(invoices["data"].first["attributes"]["id"]).to eq(@invoice_2.id)
       expect(invoices["data"].first["attributes"]["id"]).to eq(@invoice_3.id)
     end
+
+    it 'can find a random invoice' do
+
+      get "/api/v1/invoices/random"
+
+      invoice = JSON.parse(response.body)
+      expect(response).to be_successful
+      expect(invoice.count).to eq(1)
+    end
+
   end
 
 end

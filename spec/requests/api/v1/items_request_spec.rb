@@ -53,4 +53,13 @@ describe "Items API" do
     expect(items["data"].first["id"]).to eq(@item_1.id.to_s)
     expect(items["data"].last["id"]).to eq(@item_2.id.to_s)
   end
+
+  it 'can find a random item' do
+
+    get "/api/v1/items/random"
+
+    item = JSON.parse(response.body)
+    expect(response).to be_successful
+    expect(item.count).to eq(1)
+  end
 end

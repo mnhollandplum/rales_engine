@@ -7,6 +7,21 @@ Rails.application.routes.draw do
         get '/revenue', to: 'revenue#index'
         get '/find', to: 'search#show'
       end
+      namespace :customers do
+        get '/find', to: 'search#show'
+      end
+      namespace :invoice_items do
+        get '/find', to: 'search#show'
+      end
+      namespace :invoices do
+        get '/find', to: 'search#show'
+      end
+      namespace :items do
+        get '/find', to: 'search#show'
+      end
+      namespace :transactions do
+        get '/find', to: 'search#show'
+      end
       resources :customers, only: [:index, :show] do
         get '/invoices', to: 'customers/invoices#index'
         get '/transactions', to: 'customers/transactions#index'

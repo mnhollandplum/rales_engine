@@ -1,5 +1,5 @@
-class Api::V1::Invoices::CustomersController < ApplicationController
-  def show
-    render json: CustomerSerializer.new(Invoice.find(params[:invoice_id]).customer)
+class Api::V1::Merchants::MostRevenueController < ApplicationController
+  def index
+    render json: MerchantSerializer.new(Merchant.most_revenue(params[:quantity]))
   end
 end

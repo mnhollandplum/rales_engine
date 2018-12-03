@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       namespace :merchants do
+        get '/most_revenue', to: 'most_revenue#index'
       end
       resources :customers, only: [:index, :show] do
         get '/invoices', to: 'customers/invoices#index'

@@ -32,7 +32,7 @@ describe "merchant business logic" do
 
     get '/api/v1/merchants/most_revenue?quantity=2'
 
-    top_merchants_revenue = JSON.parse(response.body)
+    # top_merchants_revenue = JSON.parse(response.body)
 
     expect(response).to be_successful
   end
@@ -41,8 +41,18 @@ describe "merchant business logic" do
 
     get '/api/v1/merchants/most_items?quantity=2'
 
-    top_merchants_items = JSON.parse(response.body)
+    # top_merchants_items = JSON.parse(response.body)
 
     expect(response).to be_successful
   end
+
+  it 'can find total revenue of all merchants by date' do
+
+    get "/api/v1/merchants/revenue?date=#{@invoice_1.created_at}"
+
+    # revenue_by_date = JSON.parse(response.body)
+
+    expect(response).to be_successful
+  end
+
 end
